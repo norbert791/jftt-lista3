@@ -5,6 +5,7 @@
 
 typedef enum EArithmeticError {
   ZERO_DIVISION = 1,
+  NO_INVERSION = 2,
 } EArithmeticError;
 
 static inline long long addMod(long long a, long long b, long long base);
@@ -13,6 +14,8 @@ static inline long long multMod(long long a, long long b, long long base);
 static inline long long divMod(long long a, long long b, long long base);
 static inline long long absMod(long long a, long long base);
 static inline long long powMod(long long a, long long b, long long base);
+static inline long long gcd(long long a, long long b);
+
 
 static inline long long addMod(long long a, long long b, long long base) {
   a = absMod(a, base);
@@ -39,6 +42,11 @@ static inline long long divMod(long long a1, long long b1, long long base) {
   
   if (b1 == 0) {
     errno = ZERO_DIVISION;
+    return 0;
+  }
+
+  if (gcd(b1, base) != 1) {
+    errno = NO_INVERSION;
     return 0;
   }
 
@@ -93,6 +101,15 @@ static inline long long absMod(long long a, long long base) {
   }
 
   return a % base;
+}
+
+static inline long long gcd(long long a, long long b) {
+  while (b > 0) {
+    long long c = a % b;
+    a = b;
+    b = c;
+  }
+  return a;
 }
 
 #endif //MOD_ARITHMETIC_H
