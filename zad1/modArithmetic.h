@@ -2,6 +2,9 @@
 #define MOD_ARITHMETIC_H
 
 #include <errno.h>
+#include <limits.h>
+
+/*TODO: signed int is no longer necessary, use long long instead*/
 
 typedef enum EArithmeticError {
   ZERO_DIVISION = 1,
@@ -83,7 +86,7 @@ static inline long long powMod(long long a, long long b, long long base) {
     a = divMod(1, a, base);
   }
 
-  b %= base;
+  b = absMod(b, base);
 
   while (b > 0) {
     if (b % 2 == 1) { res = (res * a) % base; }

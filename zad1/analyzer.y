@@ -99,7 +99,7 @@ expression:
                   currentBase = expBase;
                 } expression {
                               currentBase = base;
-                              $$ = powMod($1, $4, currentBase);
+                              $$ = powMod($1, absMod($4, expBase), currentBase);
                               logStr("^ ");
                             }
 ;
