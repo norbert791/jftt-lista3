@@ -1,4 +1,3 @@
-from mod import Mod
+from sys import stdin
 
-x = Mod(0, 1234576)
-print(1//0)
+t = stdin.readlines()

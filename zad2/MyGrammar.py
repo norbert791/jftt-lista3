@@ -48,8 +48,6 @@ class CalcParser(Parser):
   def expr(self, p):
     return p.expr0 // p.expr1
 
-
-
   @_('MINUS expr %prec UMINUS')
   def expr(self, p):
     return -p.expr
@@ -80,7 +78,8 @@ if __name__ == '__main__':
     lexer = MyParser()
     parser = CalcParser()
 
-    for text in stdin:
+    while True:
+      text = input()
       try:
         parser.currentBase = parser.base
         result = parser.parse(lexer.tokenize(text))

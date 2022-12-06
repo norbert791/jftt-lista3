@@ -2,14 +2,14 @@ from sly import Lexer
 from common import ParserError
 
 class MyParser(Lexer):
-  # Set of token names.   This is always required
+  # Set of token names. This is always required
   tokens = { NUMBER, PLUS, MINUS, TIMES, DIVIDE, POWER, LBRACKET, RBRACKET, COMMENT }
 
 
   literals = { '(', ')', '{', '}', ';' }
 
   # String containing ignored characters
-  ignore = ' \t'
+  ignore = ' \t\n'
 
   # Regular expression rules for tokens
   PLUS    = r'\+'
@@ -23,12 +23,8 @@ class MyParser(Lexer):
 
   @_(r'\d+')
   def NUMBER(self, t):
-      t.value = int(t.value)
-      return t
-
-  @_(r'\n+')
-  def ignore_newline(self, t):
-    pass
+    t.value = int(t.value)
+    return t
 
   def error(self, t):
     raise ParserError()
