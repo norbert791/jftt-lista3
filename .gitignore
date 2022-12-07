@@ -5,3 +5,5 @@
 *.ali
 
 zad1/zad1
+zad2/__pycache__
+zad2/__pycache__/*
